@@ -6,7 +6,8 @@
 'use client'
 
 import { GoogleOAuthProvider } from '@react-oauth/google'
-import { ThemeProvider } from 'next-themes'
+import { ConfigProvider, theme as antdTheme } from 'antd'
+import { ThemeProvider, useTheme } from 'next-themes'
 import { usePathname } from 'next/navigation'
 import { createContext, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useShallow } from 'zustand/shallow'
@@ -28,6 +29,31 @@ const PublicRouteContext = createContext(false)
 
 export function usePublicRoute() {
   return useContext(PublicRouteContext)
+}
+
+/**
+ * AntdThemeBridge - 让 antd 组件跟随主题（品牌色 + 明暗）
+ * 仅注入主题 token，不改变任何 antd 组件的行为
+ */
+function AntdThemeBridge({ children }: { children: React.ReactNode }) {
+  const { resolvedTheme } = useTheme()
+  const isDark = resolvedTheme === 'dark'
+
+  return (
+    <ConfigProvider
+      theme={{
+        algorithm: isDark ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
+        token: {
+          colorPrimary: '#3257b0',
+          colorInfo: '#3257b0',
+          borderRadius: 8,
+          fontFamily: 'Suisseintl, sans-serif',
+        },
+      }}
+    >
+      {children}
+    </ConfigProvider>
+  )
 }
 
 export function Providers({
@@ -125,6 +151,7 @@ export function Providers({
   return (
     <PublicRouteContext.Provider value={publicRoute}>
       <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+        <AntdThemeBridge>
         <GoogleOAuthProvider clientId="1094109734611-flskoscgp609mecqk9ablvc6i3205vqk.apps.googleusercontent.com">
           <Toaster position="top-center" richColors />
           {/* 专用右上角通知中心（不影响现有 toast） */}
@@ -143,6 +170,7 @@ export function Providers({
           />
           {children}
         </GoogleOAuthProvider>
+        </AntdThemeBridge>
       </ThemeProvider>
     </PublicRouteContext.Provider>
   )

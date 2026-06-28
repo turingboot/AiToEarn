@@ -61,11 +61,11 @@ function NavItem({ item, currentRoute, collapsed, level = 0 }: NavItemProps) {
     <div
       className={cn(
         'relative flex w-full min-w-0 items-center text-sm font-medium transition-[background-color,color,box-shadow] duration-200',
-        level === 0 ? 'rounded-xl' : 'rounded-lg',
+        level === 0 ? 'rounded-lg' : 'rounded-md',
         showStrongActive
-          ? 'bg-brand-cyan/10 text-brand-cyan ring-1 ring-inset ring-brand-cyan/25'
-          : 'text-muted-foreground hover:bg-brand-cyan/10 hover:text-brand-cyan',
-        showBranchActive && 'text-brand-cyan',
+          ? 'bg-sidebar-accent text-sidebar-primary font-semibold'
+          : 'text-muted-foreground hover:bg-sidebar-accent/60 hover:text-sidebar-foreground',
+        showBranchActive && 'text-sidebar-primary',
         collapsed
           ? 'justify-center px-2 py-2.5'
           : level === 0
@@ -73,8 +73,8 @@ function NavItem({ item, currentRoute, collapsed, level = 0 }: NavItemProps) {
             : 'gap-2.5 px-3 py-2 text-[13px]',
       )}
     >
-      {showBranchActive && (
-        <span className="absolute left-1.5 top-1/2 h-5 w-1 -translate-y-1/2 rounded-full bg-brand-cyan" />
+      {(showBranchActive || (showStrongActive && !collapsed && level === 0)) && (
+        <span className="absolute left-1.5 top-1/2 h-5 w-1 -translate-y-1/2 rounded-full bg-sidebar-primary" />
       )}
       <span
         className={cn(
