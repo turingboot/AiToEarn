@@ -44,8 +44,9 @@ function AntdThemeBridge({ children }: { children: React.ReactNode }) {
       theme={{
         algorithm: isDark ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
         token: {
-          colorPrimary: '#3257b0',
-          colorInfo: '#3257b0',
+          // 与 globals.css 的 --brand-cyan 精确对齐（亮/暗各一档）
+          colorPrimary: isDark ? '#4299dc' : '#037ac0',
+          colorInfo: isDark ? '#4299dc' : '#037ac0',
           borderRadius: 8,
           fontFamily: 'Suisseintl, sans-serif',
         },

@@ -1,3 +1,4 @@
+import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { dir } from 'i18next'
 import { headers } from 'next/headers'
 import Script from 'next/script'
@@ -79,6 +80,7 @@ export default async function RootLayout({
           }}
         />
         <Script src="https://r.wdfl.co/rw.js" data-rewardful="ded70f" strategy="afterInteractive" />
+        <AntdRegistry>
         <Providers lng={lng} autoLoginToken={autoLoginToken}>
           {/* 全局频道管理弹框 */}
           <ChannelManager />
@@ -100,6 +102,7 @@ export default async function RootLayout({
             <script src="/js/xhs_sign_inject.js" />
           </div>
         </Providers>
+        </AntdRegistry>
       </body>
     </html>
   )
