@@ -1,0 +1,9 @@
+.git
+.firecrawl
+.claude
+node_modules
+.next
+presentation
+demo
+project/aitoearn-electron
+project/aitoearn-backend
