@@ -20,6 +20,14 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# 构建期公开变量(Next.js 在 build 时烘焙进前端包)
+# - NEXT_PUBLIC_API_URL:默认走相对 /api(经 nginx 反代,同源)
+# - NEXT_PUBLIC_OSS_URL:媒体公网基址(Railway 上指向 rustfs 公网域名;发布媒体需公网可达)
+ARG NEXT_PUBLIC_API_URL="/api"
+ARG NEXT_PUBLIC_OSS_URL=""
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_OSS_URL=$NEXT_PUBLIC_OSS_URL
+
 RUN pnpm build
 
 FROM base AS production
