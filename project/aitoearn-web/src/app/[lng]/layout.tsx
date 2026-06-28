@@ -8,6 +8,7 @@ import { fallbackLng, languages } from '@/app/i18n/settings'
 import LayoutSidebar from '@/app/layout/LayoutSidebar'
 import { MainContent } from '@/app/layout/MainContent'
 import MobileNav from '@/app/layout/MobileNav'
+import TopBar from '@/app/layout/TopBar'
 import { ChannelManager } from '@/components/ChannelManager'
 import { Providers } from '../layout/Providers'
 import '../globals.css'
@@ -87,11 +88,16 @@ export default async function RootLayout({
           <p className="hidden">Impact-Site-Verification: f9836212-462a-482f-9232-8a877970eacf</p>
           {/* 移动端顶部导航 - fixed 定位，独立于 flex 布局 */}
           <MobileNav />
-          <div className="flex h-screen w-full">
-            {/* 桌面端侧边栏 */}
-            <LayoutSidebar />
-            {/* 主内容区域 - 根据页面类型动态控制 pt-14 */}
-            <MainContent>{children}</MainContent>
+          {/* 桌面端整体布局：全局顶栏 + （左栏 + 内容） */}
+          <div className="flex h-screen w-full flex-col">
+            {/* 全局顶栏 */}
+            <TopBar />
+            <div className="flex min-h-0 w-full flex-1">
+              {/* 桌面端侧边栏 */}
+              <LayoutSidebar />
+              {/* 主内容区域 - 根据页面类型动态控制 pt-14 */}
+              <MainContent>{children}</MainContent>
+            </div>
             {/* eslint-disable-next-line next/no-sync-scripts */}
             <script src="/js/xhs_web_sign.js" />
             {/* eslint-disable-next-line next/no-sync-scripts */}
