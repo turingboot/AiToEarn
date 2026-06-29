@@ -1,0 +1,30 @@
+<svg width="640" height="420" viewBox="0 0 640 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="fm-brand" x1="160" y1="72" x2="500" y2="348" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#103F52"/>
+      <stop offset="1" stop-color="#23CFA7"/>
+    </linearGradient>
+    <linearGradient id="fm-soft" x1="130" y1="64" x2="516" y2="354" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E8F7F4"/>
+      <stop offset="1" stop-color="#F7FAFC"/>
+    </linearGradient>
+    <filter id="fm-shadow" x="70" y="32" width="500" height="360" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="28" flood-color="#153745" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+  <rect x="96" y="54" width="448" height="312" rx="32" fill="url(#fm-soft)" filter="url(#fm-shadow)"/>
+  <rect x="132" y="92" width="376" height="236" rx="24" fill="white" stroke="#DDE9E8"/>
+  <rect x="160" y="124" width="128" height="16" rx="8" fill="#DCE8E8"/>
+  <rect x="160" y="156" width="320" height="52" rx="18" fill="#F6FAFA" stroke="#E8F0F0"/>
+  <rect x="180" y="174" width="72" height="16" rx="8" fill="#DCE8E8"/>
+  <rect x="376" y="169" width="78" height="26" rx="13" fill="#E2F4F0"/>
+  <rect x="160" y="224" width="320" height="52" rx="18" fill="#F6FAFA" stroke="#E8F0F0"/>
+  <rect x="180" y="242" width="118" height="16" rx="8" fill="#DCE8E8"/>
+  <rect x="376" y="237" width="78" height="26" rx="13" fill="#EEF4F4"/>
+  <circle cx="320" cy="210" r="62" fill="url(#fm-brand)"/>
+  <path d="M282 218C303 174 334 169 366 193" stroke="white" stroke-width="16" stroke-linecap="round"/>
+  <path d="M282 178H352" stroke="#B7FFF0" stroke-width="14" stroke-linecap="round"/>
+  <path d="M282 218C311 193 342 199 374 224" stroke="#B7FFF0" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="368" cy="193" r="15" fill="white"/>
+  <circle cx="368" cy="193" r="7" fill="#23CFA7"/>
+</svg>

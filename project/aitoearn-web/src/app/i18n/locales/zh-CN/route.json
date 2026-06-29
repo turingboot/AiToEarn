@@ -1,8 +1,8 @@
 {
-  "home": "首页",
-  "tasksHistory": "任务记录",
-  "accounts": "发布",
-  "publish": "发布",
+  "home": "工作台",
+  "tasksHistory": "执行日志",
+  "accounts": "分发中心",
+  "publish": "分发中心",
   "hotContent": "热门内容",
   "hotContentNew": "热门内容新",
   "download": "下载",
@@ -22,12 +22,14 @@
   "mobileBottom.gold": "淘金",
   "mobileBottom.publish": "发布",
   "mobileBottom.interaction": "互动",
-  "aiSocial": "AI发布",
+  "aiSocial": "智能编排",
   "myTasks": "我的任务",
   "createTask": "创建任务",
   "pricing": "定价",
   "myStore": "我的店铺",
   "tiktokShop": "TikTok Shop",
   "xhsData": "AI互动",
+  "header.draftBox": "工作台",
+  "header.agentAssets": "创意资产",
   "groundPromotion": "地推管理"
 }

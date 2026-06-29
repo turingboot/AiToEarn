@@ -212,14 +212,14 @@ export function AiSocialPageContent() {
       {/* 任务预览区域 - 无数据时自动隐藏 */}
       <TaskPreview limit={4} className="px-4 py-8" />
 
-      {/* /!* 提示词画廊区域 *!/ */}
+      {/* FlowMint 编排管线 */}
+      <EcosystemDiagram />
+
+      {/* 常用编排模板 */}
       <PromptGallery onApplyPrompt={handleApplyPrompt} />
 
-      {/* AI Agent 功能亮点（独立展示） */}
+      {/* FlowMint 能力矩阵 */}
       <AgentFeatures />
-
-      {/* 一图解读 AiToEarn 生态 */}
-      <EcosystemDiagram />
 
       {/* 回到顶部按钮 - 右侧 */}
       <BackToTop position="right" />

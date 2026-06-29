@@ -38,10 +38,10 @@
   },
   "agentGenerator": {
     "title": "How can I help you?",
-    "subtitle": "Your AI Growth Operator"
+    "subtitle": "Your AI Smart Operator"
   },
   "aiGeneration": {
-    "inputPlaceholder": "Enter your content idea, AI will generate a complete work for you...",
+    "inputPlaceholder": "Describe your content goal and add reference assets. FlowMint will continue in a task session...",
     "generateButton": "Start Creating",
     "generating": "Creating...",
     "emptyPromptAlert": "Please enter a prompt for content generation",

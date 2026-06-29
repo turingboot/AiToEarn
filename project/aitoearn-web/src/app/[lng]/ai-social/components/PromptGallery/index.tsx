@@ -1,40 +1,59 @@
-/**
- * PromptGallery 组件
- * 功能：展示视频提示词画廊，支持点击查看详情和应用提示词
- */
 'use client'
 
 import type { PromptGalleryItem } from './types'
+import {
+  ArrowUpRight,
+  CalendarClock,
+  ClipboardCheck,
+  FileText,
+  Layers3,
+  PanelsTopLeft,
+} from 'lucide-react'
 import { memo, useCallback, useMemo, useState } from 'react'
-import { useTransClient } from '@/app/i18n/client'
+import { Button } from '@/components/ui/button'
 import { cn } from '@/utils/className'
-import { VideoCard, VideoDetailModal } from './components'
+import { VideoDetailModal } from './components'
 import { promptGalleryAssets } from './data'
 
-/** 应用提示词回调参数 */
 export interface ApplyPromptData {
-  /** 提示词内容 */
   prompt: string
-  /** 参考素材图片列表（可选） */
   materials?: string[]
-  /** 模式类型 */
   mode: 'edit' | 'generate'
 }
 
-/** PromptGallery 组件属性 */
 export interface PromptGalleryProps {
-  /** 应用提示词回调（点击视频卡片时触发） */
   onApplyPrompt?: (data: ApplyPromptData) => void
-  /** 自定义类名 */
   className?: string
 }
 
+const templateMeta = [
+  {
+    icon: PanelsTopLeft,
+    scene: '探店内容',
+    output: '提示词 + 参考素材',
+    platforms: ['TikTok', 'Reels', '小红书'],
+    accent: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+  },
+  {
+    icon: Layers3,
+    scene: '内容发现',
+    output: '短视频提示词',
+    platforms: ['小红书', '抖音', 'Instagram'],
+    accent: 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
+  },
+  {
+    icon: CalendarClock,
+    scene: '餐饮推广',
+    output: '视频生成提示词',
+    platforms: ['TikTok', 'Facebook', 'Threads'],
+    accent: 'bg-slate-500/10 text-slate-700 dark:text-slate-300',
+  },
+]
+
 const PromptGallery = memo(({ onApplyPrompt, className }: PromptGalleryProps) => {
-  const { t } = useTransClient('promptGallery')
   const [selectedItem, setSelectedItem] = useState<PromptGalleryItem | null>(null)
   const [modalOpen, setModalOpen] = useState(false)
 
-  // 组合数据 - title 和 prompt 直接使用 data.ts 中的英文，不走翻译
   const promptGalleryItems = useMemo<PromptGalleryItem[]>(
     () =>
       promptGalleryAssets.map(asset => ({
@@ -45,85 +64,100 @@ const PromptGallery = memo(({ onApplyPrompt, className }: PromptGalleryProps) =>
     [],
   )
 
-  // 点击卡片只打开详情弹窗，不应用提示词
-  const handleCardClick = useCallback((item: PromptGalleryItem) => {
+  const handleTemplateClick = useCallback((item: PromptGalleryItem) => {
     setSelectedItem(item)
     setModalOpen(true)
   }, [])
 
-  // 关闭弹窗
   const handleModalClose = useCallback((open: boolean) => {
     setModalOpen(open)
     if (!open) {
-      // 延迟清除选中项，避免弹窗关闭动画中内容消失
       setTimeout(() => setSelectedItem(null), 300)
     }
   }, [])
 
-  // 在弹窗中点击应用提示词按钮
   const handleApplyPrompt = useCallback(
     (data: { prompt: string, materials?: string[] }) => {
-      if (onApplyPrompt) {
-        onApplyPrompt({
-          prompt: data.prompt,
-          materials: data.materials,
-          mode: 'generate',
-        })
-      }
+      onApplyPrompt?.({
+        prompt: data.prompt,
+        materials: data.materials,
+        mode: 'generate',
+      })
     },
     [onApplyPrompt],
   )
 
   return (
-    <section className="mb-10 px-4 md:px-6 lg:px-8">
-      <div className={cn('w-full max-w-5xl mx-auto', className)}>
-        {/* 标题区域 */}
-        <div className="mb-6 text-center sm:mb-8">
-          <h2 className="mb-2 text-2xl font-bold text-foreground sm:text-3xl">{t('title')}</h2>
-          <p className="text-sm text-muted-foreground sm:text-base">{t('subtitle')}</p>
-        </div>
-
-        {/* 视频卡片网格 - 3列竖屏布局 */}
-        {/*
-        PC 端 (>= 1024px) 3 列布局：
-        ┌─────────┬─────────┬─────────┐
-        │         │         │         │
-        │ 竖视频1 │ 竖视频2 │ 竖视频3 │
-        │         │         │         │
-        └─────────┴─────────┴─────────┘
-
-        平板 (640px - 1024px) 2 列布局：
-        ┌─────────┬─────────┐
-        │ 竖视频1 │ 竖视频2 │
-        ├─────────┼─────────┤
-        │ 竖视频3 │         │
-        └─────────┴─────────┘
-
-        移动端 (< 640px) 1 列布局
-      */}
-        <div
-          className={cn(
-            'grid gap-2 sm:gap-4',
-            // 移动端 1 列
-            'grid-cols-1',
-            // 平板 2 列
-            'sm:grid-cols-2',
-            // PC 端 3 列
-            'lg:grid-cols-3',
-          )}
-        >
-          {promptGalleryItems.slice(0, 3).map((item, index) => (
-            <div key={index} className="aspect-[9/12]">
-              <VideoCard
-                item={item}
-                onClick={() => handleCardClick(item)}
-                size="vertical"
-              />
+    <section className="px-4 py-10 md:px-6 lg:px-8">
+      <div className={cn('mx-auto w-full max-w-6xl', className)}>
+        <div className="mb-5 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div>
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+              <ClipboardCheck className="h-3.5 w-3.5" />
+              常用模板
             </div>
-          ))}
+            <h2 className="text-2xl font-semibold text-foreground md:text-3xl">选择模板快速填入输入区</h2>
+          </div>
+          <p className="max-w-xl text-sm leading-6 text-muted-foreground">
+            模板会打开提示词详情；点击应用后，提示词和参考素材会带回顶部输入区。
+          </p>
         </div>
 
-        {/* 视频详情弹窗 */}
+        <div className="grid gap-4 md:grid-cols-3">
+          {promptGalleryItems.slice(0, 3).map((item, index) => {
+            const meta = templateMeta[index % templateMeta.length]
+            return (
+              <button
+                key={item.title}
+                type="button"
+                className="group rounded-lg border border-border bg-card p-4 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/35 hover:shadow-md"
+                onClick={() => handleTemplateClick(item)}
+              >
+                <div className="mb-4 flex items-start justify-between gap-3">
+                  <span className={cn('flex h-10 w-10 items-center justify-center rounded-lg', meta.accent)}>
+                    <meta.icon className="h-5 w-5" />
+                  </span>
+                  <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary" />
+                </div>
+
+                <div className="mb-3 flex items-center gap-2">
+                  <span className="rounded-full bg-background px-2.5 py-1 text-xs text-muted-foreground ring-1 ring-border">
+                    {meta.scene}
+                  </span>
+                  <span className="rounded-full bg-primary/10 px-2.5 py-1 text-xs text-primary">
+                    可应用
+                  </span>
+                </div>
+
+                <h3 className="line-clamp-2 min-h-11 text-base font-semibold leading-6 text-foreground">
+                  {item.title}
+                </h3>
+                <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
+                  {meta.output}
+                </p>
+
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {meta.platforms.map(platform => (
+                    <span key={platform} className="rounded-md border border-border bg-background px-2 py-1 text-xs text-muted-foreground">
+                      {platform}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-4 flex items-center justify-between border-t border-border pt-3">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <FileText className="h-3.5 w-3.5" />
+                    查看提示词和参考素材
+                  </div>
+                  <Button size="sm" variant="ghost" className="h-7 px-2 text-xs">
+                    应用
+                  </Button>
+                </div>
+              </button>
+            )
+          })}
+        </div>
+
         <VideoDetailModal
           open={modalOpen}
           onOpenChange={handleModalClose}

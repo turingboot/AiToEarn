@@ -52,7 +52,7 @@ export const HomeChat = forwardRef<IHomeChatRef, IHomeChatProps>(
     const { t } = useTransClient('chat')
     const { t: tHome } = useTransClient('home')
     const router = useRouter()
-    const platformList = usePlatformInfoList('publish')
+    const platformList = [...usePlatformInfoList('publish')].sort((a, b) => b.type.localeCompare(a.type))
     const { lng } = useParams()
     const token = useUserStore(state => state.token)
 

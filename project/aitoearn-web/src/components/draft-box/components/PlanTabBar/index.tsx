@@ -79,9 +79,17 @@ function PlanTabBar({ onPlanChange }: PlanTabBarProps) {
     onPlanChange?.(planId)
   }
 
+  const getPlanDisplayName = (plan: { name?: string, title?: string }) => {
+    const name = plan.name || plan.title || ''
+    if (name === 'Default') {
+      return t('planTab.defaultWorkspace')
+    }
+    return name
+  }
+
   if (tabPlansLoading) {
     return (
-      <div className="flex items-center gap-2 px-4 py-2 border-b border-border">
+      <div className="flex items-center gap-2 border-b border-border bg-card px-5 py-3">
         <Skeleton className="h-8 w-20" />
         <Skeleton className="h-8 w-20" />
         <Skeleton className="h-8 w-20" />
@@ -93,7 +101,7 @@ function PlanTabBar({ onPlanChange }: PlanTabBarProps) {
     return null
 
   return (
-    <div className="flex items-center border-b border-border bg-background">
+    <div className="flex items-center border-b border-border bg-card/95 shadow-sm shadow-border/20">
       {/* 可滚动 Tab 区域 */}
       <div
         ref={scrollRef}
@@ -107,22 +115,22 @@ function PlanTabBar({ onPlanChange }: PlanTabBarProps) {
             key={plan.id}
             ref={plan.id === selectedPlanId ? activeTabRef : undefined}
             className={cn(
-              'shrink-0 px-4 py-2.5 text-sm cursor-pointer transition-colors whitespace-nowrap',
+              'shrink-0 px-4 py-3 text-sm cursor-pointer transition-colors whitespace-nowrap',
               'hover:text-foreground',
               'border-b-2 border-transparent',
               plan.id === selectedPlanId
-                ? 'border-b-primary text-foreground font-medium'
+                ? 'border-b-primary text-foreground font-semibold'
                 : 'text-muted-foreground',
             )}
             onClick={() => handleTabClick(plan.id)}
           >
-            {plan.name || plan.title}
+            {getPlanDisplayName(plan)}
           </button>
         ))}
       </div>
 
       {/* 右侧固定按钮区域 */}
-      <div className="flex items-center shrink-0 border-l border-border px-1 gap-0.5">
+      <div className="flex items-center shrink-0 border-l border-border px-2 gap-1">
         {/* 更多按钮 */}
         <MorePanel
           trigger={(

@@ -38,10 +38,10 @@
   },
   "agentGenerator": {
     "title": "有什么可以帮你的？",
-    "subtitle": "你的AI运营员工"
+    "subtitle": "您的AI智能员工"
   },
   "aiGeneration": {
-    "inputPlaceholder": "输入你想创作的内容，AI将为你生成完整的作品...",
+    "inputPlaceholder": "描述你的内容目标，可添加参考素材，FlowMint 将进入任务会话继续处理...",
     "generateButton": "开始创作",
     "generating": "创作中...",
     "emptyPromptAlert": "请输入生成内容的提示词",

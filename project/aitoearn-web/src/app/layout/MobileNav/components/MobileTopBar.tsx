@@ -7,6 +7,7 @@ import { Menu } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTransClient } from '@/app/i18n/client'
+import { BRAND_TITLE, BrandWordmark } from '@/app/layout/shared'
 import logo from '@/assets/images/logo.png'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { useUserStore } from '@/store/user'
@@ -22,8 +23,8 @@ export function MobileTopBar({ onOpen }: MobileTopBarProps) {
   return (
     <div className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between h-14 px-4 bg-background border-b border-border" data-testid="mobile-topbar">
       <Link href="/" className="flex items-center gap-2" data-testid="mobile-topbar-logo">
-        <Image src={logo} alt="Aitoearn" width={32} height={32} />
-        <span className="text-base font-semibold text-foreground">Aitoearn</span>
+        <Image src={logo} alt={BRAND_TITLE} width={32} height={32} />
+        <BrandWordmark size="mobile" />
       </Link>
 
       <div className="flex items-center gap-2">

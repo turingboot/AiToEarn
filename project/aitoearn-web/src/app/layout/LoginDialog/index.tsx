@@ -13,6 +13,7 @@ import { useShallow } from 'zustand/shallow'
 
 import { EmailLoginForm } from '@/app/[lng]/auth/login/components/LoginContent/EmailLoginForm'
 import { useTransClient } from '@/app/i18n/client'
+import { BRAND_TITLE } from '@/app/layout/shared'
 import logo from '@/assets/images/logo.png'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 
@@ -78,7 +79,7 @@ const LoginDialogContent = memo(() => {
         <div className="flex flex-col items-center pb-2 pt-2">
           <Image
             src={logo}
-            alt="AiToEarn"
+            alt={BRAND_TITLE}
             width={56}
             height={56}
             className="mb-4 drop-shadow-md"

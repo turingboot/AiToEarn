@@ -180,16 +180,6 @@ const ToolBarInline = memo(
           onDraftModeChange={onDraftModeChange}
         />
 
-        {isDraftMode && (
-          <PlatformSelector
-            selectedPlatforms={selectedPlatforms}
-            onPlatformsChange={onPlatformsChange}
-            pillClass={pillClass}
-            disabledPlatforms={disabledPlatforms}
-            effectiveLimitsDetailed={effectiveLimitsDetailed}
-          />
-        )}
-
         <ModelSelect
           currentModelDisplay={currentModelDisplay}
           imageModelOptions={imageModelOptions}
@@ -299,6 +289,16 @@ const ToolBarInline = memo(
             popover={quantityPopover}
             quantity={quantity}
             onQuantityChange={handleQuantityChange}
+          />
+        )}
+
+        {isDraftMode && (
+          <PlatformSelector
+            selectedPlatforms={selectedPlatforms}
+            onPlatformsChange={onPlatformsChange}
+            pillClass={pillClass}
+            disabledPlatforms={disabledPlatforms}
+            effectiveLimitsDetailed={effectiveLimitsDetailed}
           />
         )}
 

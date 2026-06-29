@@ -383,6 +383,7 @@
     "more": "更多",
     "moreTitle": "所有草稿箱",
     "newPlan": "新建",
+    "defaultWorkspace": "默认工作台",
     "totalCount": "共 {{count}} 个",
     "loadMore": "加载更多",
     "editPlan": "编辑",

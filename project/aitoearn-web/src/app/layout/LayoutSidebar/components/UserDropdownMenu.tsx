@@ -1,9 +1,3 @@
-/**
- * UserDropdownMenu - 用户头像下拉菜单组件
- * 参考飞书风格，将用户相关功能收纳到下拉菜单中
- * 支持展开/折叠两种状态
- */
-
 'use client'
 
 import type { SidebarCommonProps } from '../types'
@@ -12,26 +6,30 @@ import {
   BookOpen,
   ChevronRight,
   FileText,
+  Puzzle,
   ScrollText,
   Settings,
   Shield,
+  SlidersHorizontal,
 } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useTransClient } from '@/app/i18n/client'
 import { DOCS_URL, GITHUB_REPO } from '@/app/layout/shared/constants'
 import { useGitHubStars } from '@/app/layout/shared/hooks/useGitHubStars'
+import { PluginModal } from '@/components/Plugin'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { useConfigManagerDialogStore } from '@/store/configManagerDialog'
+import { usePluginStore } from '@/store/plugin'
 import { useUserStore } from '@/store/user'
 import { navigateToLogin } from '@/utils/auth'
 import { cn } from '@/utils/className'
 import { getOssUrl } from '@/utils/oss'
 
-/** GitHub SVG 图标 */
 function GitHubIcon({ className }: { className?: string }) {
   return (
     <svg className={cn('h-4 w-4', className)} viewBox="0 0 24 24" fill="currentColor">
@@ -41,11 +39,9 @@ function GitHubIcon({ className }: { className?: string }) {
 }
 
 export interface UserDropdownMenuProps extends SidebarCommonProps {
-  /** 打开设置弹框 */
   onOpenSettings: (defaultTab?: SettingsTab) => void
 }
 
-/** 菜单项组件 */
 function MenuItem({
   icon: Icon,
   label,
@@ -98,7 +94,6 @@ function MenuItem({
   )
 }
 
-/** 已登录用户的下拉菜单内容 */
 function LoggedInMenuContent({
   onOpenSettings,
   onClose,
@@ -109,16 +104,29 @@ function LoggedInMenuContent({
   const { t } = useTransClient(['common'])
   const userInfo = useUserStore(state => state.userInfo)
   const starCount = useGitHubStars()
+  const openConfigDialog = useConfigManagerDialogStore(state => state.openDialog)
+  const pluginModalVisible = usePluginStore(state => state.pluginModalVisible)
+  const openPluginModal = usePluginStore(state => state.openPluginModal)
+  const closePluginModal = usePluginStore(state => state.closePluginModal)
 
   const handleOpenSettings = () => {
     onOpenSettings()
     onClose()
   }
 
+  const handleOpenConfig = () => {
+    openConfigDialog('sidebar')
+    onClose()
+  }
+
+  const handleOpenPlugin = () => {
+    openPluginModal()
+    onClose()
+  }
+
   return (
     <>
       <div className="flex flex-col gap-1 p-2">
-        {/* 用户信息区域 */}
         <div className="flex items-center gap-3 px-3 py-2">
           <Avatar className="h-10 w-10 shrink-0 border border-border">
             <AvatarImage
@@ -130,10 +138,7 @@ function LoggedInMenuContent({
             </AvatarFallback>
           </Avatar>
           <div className="flex min-w-0 flex-1 flex-col">
-            <span
-              className="truncate text-sm font-medium text-foreground"
-              data-testid="sidebar-user-name"
-            >
+            <span className="truncate text-sm font-medium text-foreground" data-testid="sidebar-user-name">
               {userInfo?.name || t('common:unknownUser')}
             </span>
           </div>
@@ -151,43 +156,38 @@ function LoggedInMenuContent({
 
         <div className="my-1 h-px bg-border" />
 
-        {/* 中频：文档 */}
+        <MenuItem
+          icon={SlidersHorizontal}
+          label={t('common:configManagement')}
+          onClick={handleOpenConfig}
+        />
+        <MenuItem icon={Puzzle} label={t('common:plugin')} onClick={handleOpenPlugin} />
+
+        <div className="my-1 h-px bg-border" />
+
         <div className="group/docs relative">
-          {/* 触发行 */}
           <div className="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2 text-sm text-foreground transition-colors hover:bg-accent">
             <BookOpen size={16} className="shrink-0" />
             <span className="flex-1 text-left">{t('common:documents')}</span>
             <ChevronRight size={14} className="text-muted-foreground" />
           </div>
-          {/* 右侧飞出面板 */}
           <div className="invisible absolute left-full top-0 z-50 pl-1 opacity-0 transition-all group-hover/docs:visible group-hover/docs:opacity-100">
             <div className="w-48 rounded-md border bg-popover p-1 shadow-md">
               <MenuItem icon={FileText} label={t('common:helpDocs')} href={DOCS_URL} external />
-              <MenuItem
-                icon={FileText}
-                label={t('common:pluginGuide')}
-                href="/websit/plugin-guide"
-              />
-              <MenuItem
-                icon={Shield}
-                label={t('common:privacyPolicy')}
-                href="/websit/privacy-policy"
-              />
-              <MenuItem
-                icon={ScrollText}
-                label={t('common:termsOfService')}
-                href="/websit/terms-of-service"
-              />
+              <MenuItem icon={FileText} label={t('common:pluginGuide')} href="/websit/plugin-guide" />
+              <MenuItem icon={Shield} label={t('common:privacyPolicy')} href="/websit/privacy-policy" />
+              <MenuItem icon={ScrollText} label={t('common:termsOfService')} href="/websit/terms-of-service" />
             </div>
           </div>
         </div>
+
         <div className="my-1 h-px bg-border" />
 
-        {/* 高频：设置 */}
         <div data-testid="sidebar-settings-entry">
           <MenuItem icon={Settings} label={t('common:settings')} onClick={handleOpenSettings} />
         </div>
       </div>
+      <PluginModal visible={pluginModalVisible} onClose={closePluginModal} />
     </>
   )
 }
@@ -199,7 +199,6 @@ export function UserDropdownMenu({ collapsed, onOpenSettings }: UserDropdownMenu
   const { t } = useTransClient('common')
   const [open, setOpen] = useState(false)
 
-  // 如果还未 hydrate 完成，显示骨架屏
   if (!hasHydrated) {
     if (collapsed) {
       return <Skeleton className="h-9 w-9 rounded-md" />
@@ -207,7 +206,6 @@ export function UserDropdownMenu({ collapsed, onOpenSettings }: UserDropdownMenu
     return <Skeleton className="mt-2 h-9 w-full rounded-md" />
   }
 
-  // 未登录状态显示登录按钮
   if (!token) {
     const handleLogin = () => navigateToLogin()
 
@@ -216,12 +214,7 @@ export function UserDropdownMenu({ collapsed, onOpenSettings }: UserDropdownMenu
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button
-                onClick={handleLogin}
-                size="icon"
-                className="h-9 w-9"
-                data-testid="sidebar-login-btn"
-              >
+              <Button onClick={handleLogin} size="icon" className="h-9 w-9" data-testid="sidebar-login-btn">
                 <span className="text-sm font-semibold">In</span>
               </Button>
             </TooltipTrigger>
@@ -240,7 +233,6 @@ export function UserDropdownMenu({ collapsed, onOpenSettings }: UserDropdownMenu
     )
   }
 
-  // 已登录状态显示下拉菜单
   return (
     <div
       className={cn(
@@ -255,7 +247,6 @@ export function UserDropdownMenu({ collapsed, onOpenSettings }: UserDropdownMenu
           <Tooltip>
             <PopoverTrigger asChild>
               <TooltipTrigger asChild>
-                {/* 头像区域 - 点击打开设置弹框 */}
                 <button
                   onClick={(e) => {
                     e.preventDefault()

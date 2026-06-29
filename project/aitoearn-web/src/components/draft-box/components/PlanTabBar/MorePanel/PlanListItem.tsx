@@ -26,6 +26,9 @@ function PlanListItem({
   onDelete,
 }: PlanListItemProps) {
   const { t } = useTransClient('brandPromotion')
+  const planDisplayName = (plan.name || plan.title) === 'Default'
+    ? t('planTab.defaultWorkspace')
+    : (plan.name || plan.title)
 
   return (
     <div
@@ -45,7 +48,7 @@ function PlanListItem({
           isSelected && 'font-medium text-primary',
         )}
         >
-          {plan.name || plan.title}
+          {planDisplayName}
         </span>
       </div>
       <div className="flex items-center gap-1 shrink-0 ml-2">

@@ -1,0 +1,55 @@
+services:
+  # 用 MinIO 替换 rustfs
+  rustfs:
+    image: quay.io/minio/minio:latest
+    container_name: aitoearn-minio
+    hostname: rustfs.local
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: rustfsadmin
+      MINIO_ROOT_PASSWORD: rustfsadmin
+    ports:
+      - "9001:9001"
+    volumes:
+      - rustfs-data:/data
+    networks:
+      aitoearn-network:
+        aliases:
+          - rustfs.local
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  rustfs-init:
+    image: minio/mc:latest
+    container_name: aitoearn-minio-init
+    depends_on:
+      rustfs:
+        condition: service_healthy
+    networks:
+      - aitoearn-network
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set rustfs http://rustfs.local:9000 rustfsadmin rustfsadmin;
+      mc mb rustfs/aitoearn --ignore-existing;
+      mc anonymous set download rustfs/aitoearn;
+      exit 0;
+      "
+
+  # 移除 aitoearn-ai/server/web 的 pull_policy（已拉取到本地）
+  aitoearn-ai:
+    pull_policy: missing
+
+  aitoearn-server:
+    pull_policy: missing
+
+  aitoearn-web:
+    pull_policy: missing
+
+  # 使用 nginx:alpine（已从 DaoCloud 镜像拉取并打好 tag）
+  nginx:
+    image: nginx:alpine

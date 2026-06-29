@@ -1,6 +1,6 @@
 {
   "input": {
-    "placeholder": "Create an 8-second vertical promo video for our new Sushi Platter. Use upbeat jazz music, close-up shots of fresh salmon, generate subtitles, and end with our logo.",
+    "placeholder": "Help me plan a product promotion with a title, caption, visual direction, and suitable channel ideas.",
     "send": "Send",
     "stop": "Stop",
     "uploading": "Uploading...",
@@ -74,11 +74,11 @@
   },
   "history": {
     "meta": {
-      "title": "AI Task History - Conversations & Generation Records",
-      "description": "View and manage your AI Agent task records, including conversation history, AI usage logs, and video generation history. Supports pagination, task rating, and history management.",
+      "title": "Run Logs - Content Tasks and Processing Records",
+      "description": "View and manage your content processing records, including task sessions, usage logs, and video generation history. Supports pagination, task rating, and record management.",
       "keywords": "AI task records, conversation history, AI Agent history, task management, AI usage logs, video generation history, history records, task rating, AI chat records, workflow history, content creation records, AI creation history"
     },
-    "title": "Task History",
+    "title": "Run Details",
     "empty": "No task records",
     "loadMore": "Load More",
     "loading": "Loading...",

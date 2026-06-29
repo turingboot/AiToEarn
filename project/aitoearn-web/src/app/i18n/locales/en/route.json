@@ -1,8 +1,8 @@
 {
-  "home": "Home",
-  "tasksHistory": "Task History",
-  "accounts": "Publish",
-  "publish": "Publish",
+  "home": "Workspace",
+  "tasksHistory": "Run Logs",
+  "accounts": "Distribution",
+  "publish": "Distribution",
   "hotContent": "Hot Content",
   "hotContentNew": "Hot Content New",
   "aiTools": "AI Tools",
@@ -21,12 +21,14 @@
   "mobileBottom.gold": "Gold",
   "mobileBottom.publish": "Publish",
   "mobileBottom.interaction": "Interact",
-  "aiSocial": "AI Publish",
+  "aiSocial": "Smart Planning",
   "myTasks": "My Tasks",
   "createTask": "Create Task",
   "pricing": "Pricing",
   "myStore": "My Store",
   "tiktokShop": "TikTok Shop",
   "xhsData": "AI Interaction",
+  "header.draftBox": "Workspace",
+  "header.agentAssets": "Creative Assets",
   "groundPromotion": "Ground Promotion"
 }

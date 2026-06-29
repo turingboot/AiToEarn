@@ -4,7 +4,7 @@
 
 import { cn } from '@/utils/className'
 
-export const BRAND_TITLE = 'AitoEarn'
+export const BRAND_TITLE = 'FlowMint'
 
 type BrandWordmarkTag = 'h1' | 'span'
 type BrandWordmarkSize = 'sidebar' | 'mobile'
@@ -16,8 +16,8 @@ export interface BrandWordmarkProps {
 }
 
 const WORDMARK_SIZE_CLASSNAME: Record<BrandWordmarkSize, string> = {
-  sidebar: 'text-[1.05rem] tracking-[-0.045em]',
-  mobile: 'text-base tracking-[-0.04em]',
+  sidebar: 'text-[1.05rem] tracking-[-0.025em]',
+  mobile: 'text-base tracking-[-0.02em]',
 }
 
 const ANCHOR_SIZE_CLASSNAME: Record<BrandWordmarkSize, string> = {
@@ -47,16 +47,16 @@ export function BrandWordmark({
           ANCHOR_SIZE_CLASSNAME[size],
         )}
       >
-        A
+        F
       </span>
-      <span className="text-foreground/90">ito</span>
+      <span className="text-foreground/90">low</span>
       <span
         className={cn(
           'inline-flex items-baseline bg-gradient-back bg-clip-text text-transparent transition-transform duration-300 group-hover/logo:translate-x-px',
         )}
       >
-        <span className={cn('inline-block font-bold', ANCHOR_SIZE_CLASSNAME[size])}>E</span>
-        <span>arn</span>
+        <span className={cn('inline-block font-bold', ANCHOR_SIZE_CLASSNAME[size])}>M</span>
+        <span>int</span>
       </span>
     </Component>
   )

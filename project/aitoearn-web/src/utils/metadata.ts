@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { getHreflang, languages } from '@/app/i18n/languageConfig'
 import { getPageTitle } from './title'
 
-const BRAND_KEYWORDS = ['AiToEarn', 'aitoearn', 'Ai To Earn', 'ai to earn', 'AITOEARN', 'earn']
+const BRAND_KEYWORDS = ['FlowMint', 'flowmint', 'Flow Mint', 'flow mint', 'content workflow', 'creator growth']
 
 /** 确保品牌关键词变体在 keywords 最前面，避免重复 */
 function prependBrandKeyword(keywords: Metadata['keywords']): string {
@@ -52,7 +52,7 @@ export async function getMetadata(props: Metadata, lng: string, path?: string): 
       title,
       description,
       url: `${baseUrl}/${lng}${pagePath}`,
-      siteName: 'AiToEarn',
+      siteName: 'FlowMint',
       locale: lng,
       type: 'website',
       images: [

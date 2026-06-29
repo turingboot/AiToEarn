@@ -1,264 +1,125 @@
-/**
- * AgentFeatures - AI Agent 功能亮点轮播展示（用于首页）
- * 使用 Swiper 实现自动轮播效果，支持无缝滚动
- */
 'use client'
 
 import type { FC } from 'react'
-import type { Swiper as SwiperType } from 'swiper'
 import {
-  Activity,
-  BarChart3,
-  Calendar,
-  ChevronLeft,
-  ChevronRight,
-  Download,
-  FileText,
-  Frame,
-  Hash,
-  Image as ImageIcon,
-  Languages,
-  Layers,
-  Lightbulb,
-  ListTodo,
-  MessageSquare,
-  MonitorSmartphone,
-  PanelTop,
-  ScanEye,
-  Scissors,
-  Search,
-  Send,
-  Timer,
-  Users,
-  Video,
-  Workflow,
+  BadgeCheck,
+  Blocks,
+  ClipboardList,
+  FileStack,
+  GalleryHorizontalEnd,
+  History,
+  LogIn,
+  MessageSquareText,
+  MousePointerClick,
+  PlugZap,
+  UploadCloud,
 } from 'lucide-react'
-import { useCallback, useRef } from 'react'
-import { Autoplay, Pagination } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { useTransClient } from '@/app/i18n/client'
-import { Button } from '@/components/ui/button'
 import { cn } from '@/utils/className'
-
-import 'swiper/css'
-import 'swiper/css/pagination'
-import './style.css'
 
 interface AgentFeaturesProps {
   className?: string
 }
 
-// 图标映射 - 每个功能使用不同的图标
-const iconMap = {
-  inspiration: Lightbulb, // 创意灵感 - 灯泡
-  oneClickScript: FileText, // 一键生成脚本 - 文档
-  multiTemplates: Layers, // 多风格模板 - 图层
-  imageGenerate: ImageIcon, // 图片生成 - 图片
-  videoGenerate: Video, // 视频生成 - 视频
-  highlight: Scissors, // 高光剪辑 - 剪刀
-  storyboard: PanelTop, // 分镜设计 - 面板
-  coverSuggestion: Frame, // 封面建议 - 相框
-  download: Download, // 素材下载 - 下载
-  videoTranslation: Languages, // 视频翻译 - 语言
-  platformAdapt: MonitorSmartphone, // 平台适配 - 多设备
-  topicTag: Hash, // 话题标签 - 标签
-  seo: Search, // SEO优化 - 搜索
-  schedule: Calendar, // 定时发布 - 日历
-  multiPlatform: Send, // 多平台分发 - 发送
-  smartTime: Timer, // 智能发布时间 - 计时器
-  sse: Activity, // 流式任务 - 活动/脉冲
-  taskManagement: ListTodo, // 任务管理 - 待办列表
-  workflow: Workflow, // 可扩展工作流 - 工作流
-  videoUnderstanding: ScanEye, // 视频理解 - 扫描眼睛
-  report: BarChart3, // 运营报告 - 柱状图
-  commentAssistant: MessageSquare, // 评论助手 - 消息
-  audienceInsight: Users, // 用户画像 - 用户组
-} as const
-
-// 所有功能项
-const allFeatures = [
-  'inspiration',
-  'oneClickScript',
-  'multiTemplates',
-  'imageGenerate',
-  'videoGenerate',
-  'highlight',
-  'storyboard',
-  'coverSuggestion',
-  'download',
-  'videoTranslation',
-  'platformAdapt',
-  'topicTag',
-  'seo',
-  'schedule',
-  'multiPlatform',
-  'smartTime',
-  'sse',
-  'taskManagement',
-  'workflow',
-  'videoUnderstanding',
-  'report',
-  'commentAssistant',
-  'audienceInsight',
+const featureGroups = [
+  {
+    title: '任务输入',
+    description: '输入内容需求，并添加生成时需要参考的素材。',
+    items: [
+      { icon: ClipboardList, title: '需求描述', desc: '输入一句话需求，作为创建任务的主要内容。' },
+      { icon: UploadCloud, title: '素材上传', desc: '支持在输入区添加图片或视频，并可拖拽上传。' },
+      { icon: FileStack, title: '模板带入', desc: '模板可把提示词和参考素材带回输入区。' },
+    ],
+  },
+  {
+    title: '任务处理',
+    description: '沿用现有登录、积分和任务会话流程。',
+    items: [
+      { icon: LogIn, title: '登录校验', desc: '未登录时会保存待处理任务并跳转登录。' },
+      { icon: BadgeCheck, title: '积分校验', desc: '积分不足时会打开余额提示。' },
+      { icon: MessageSquareText, title: '进入会话', desc: '通过任务会话页继续查看生成过程。' },
+    ],
+  },
+  {
+    title: '结果入口',
+    description: '继续查看任务、素材和频道连接状态。',
+    items: [
+      { icon: History, title: '任务记录', desc: '查看历史任务和处理进度。' },
+      { icon: GalleryHorizontalEnd, title: '生成素材', desc: '显示 AI 生成素材，并支持打开预览。' },
+      { icon: PlugZap, title: '频道连接', desc: '从输入区进入频道连接列表，管理发布账号。' },
+    ],
+  },
 ]
 
-/**
- * 功能卡片组件 - icon 和 title 同行布局
- */
-interface FeatureCardProps {
-  itemKey: string
-  t: (key: string) => string
-}
+const sideMetrics = [
+  { label: '输入', value: '需求' },
+  { label: '素材', value: '上传' },
+  { label: '记录', value: '查看' },
+]
 
-const FeatureCard: FC<FeatureCardProps> = ({ itemKey, t }) => {
-  const Icon = iconMap[itemKey as keyof typeof iconMap]
-  const title = t(`agentFeatures.items.${itemKey}.title`)
-  const desc = t(`agentFeatures.items.${itemKey}.desc`)
-
-  return (
-    <div className="h-full rounded-xl border border-border bg-card p-4 transition-colors duration-200 hover:border-primary/30">
-      {/* icon + title 同行 */}
-      <div className="flex items-center gap-3 mb-2">
-        {/* 带渐变动画的图标容器 */}
-        <div
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-muted animate-pulse"
-          style={{ animationDuration: '3s' }}
-        >
-          <Icon className="h-[18px] w-[18px] text-muted-foreground" />
-        </div>
-        <h4 className="text-sm font-medium text-foreground line-clamp-1">{title}</h4>
-      </div>
-
-      {/* 描述 */}
-      <p className="text-xs leading-relaxed text-muted-foreground line-clamp-2">{desc}</p>
-    </div>
-  )
-}
-
-/**
- * AgentFeatures 主组件
- */
 const AgentFeatures: FC<AgentFeaturesProps> = ({ className }) => {
-  const { t } = useTransClient('promptGallery')
-  const swiperRef = useRef<SwiperType | null>(null)
-
-  // 处理 Swiper 实例
-  const onSwiper = useCallback((swiper: SwiperType) => {
-    swiperRef.current = swiper
-  }, [])
-
-  // 导航按钮点击
-  const handlePrev = useCallback(() => {
-    swiperRef.current?.slidePrev()
-  }, [])
-
-  const handleNext = useCallback(() => {
-    swiperRef.current?.slideNext()
-  }, [])
-
   return (
-    <section className={cn('py-10 px-4 md:px-6 lg:px-8', className)}>
-      <div className="w-full max-w-5xl mx-auto">
-        {/* 标题区域 */}
-        <div className="mb-8 text-center sm:mb-8">
-          <h2 className="mb-2 text-2xl font-bold text-foreground sm:text-3xl">
-            {t('agentFeatures.title')}
-          </h2>
-          <p className="text-sm text-muted-foreground sm:text-base">
-            {t('agentFeatures.subtitle')}
+    <section className={cn('px-4 py-10 md:px-6 lg:px-8', className)}>
+      <div className="mx-auto grid w-full max-w-6xl gap-5 lg:grid-cols-[320px_minmax(0,1fr)]">
+        <aside className="rounded-lg border border-border bg-card p-5 shadow-sm">
+          <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 text-primary">
+            <Blocks className="h-5 w-5" />
+          </div>
+          <h2 className="text-xl font-semibold text-foreground">智能编排能力</h2>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">
+            将需求输入、素材上传、任务会话和记录入口放在同一条操作路径中。
           </p>
-        </div>
-        <div className="flex flex-col gap-3 mb-8 md:flex-row md:items-end md:justify-between">
-          <div />
-          {/* 桌面端导航按钮 */}
-          <div className="hidden md:flex items- center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8 rounded-full cursor-pointer"
-              onClick={handlePrev}
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8 rounded-full cursor-pointer"
-              onClick={handleNext}
-            >
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
 
-        {/* Swiper 轮播 - 移动端分页器在两侧 */}
-        <div className="flex items-center gap-2">
-          {/* 移动端左箭头 */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden h-8 w-8 shrink-0 rounded-full cursor-pointer"
-            onClick={handlePrev}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-
-          {/* Swiper 内容 */}
-          <div className="flex-1 min-w-0 agent-features-swiper">
-            <Swiper
-              modules={[Autoplay, Pagination]}
-              onSwiper={onSwiper}
-              spaceBetween={12}
-              slidesPerView={1}
-              loop
-              autoplay={{
-                delay: 3000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-              }}
-              pagination={{
-                clickable: true,
-              }}
-              breakpoints={{
-                // 移动端：1 个卡片
-                0: {
-                  slidesPerView: 1,
-                  spaceBetween: 12,
-                },
-                // 小屏幕：2 个卡片
-                480: {
-                  slidesPerView: 2,
-                  spaceBetween: 12,
-                },
-                // 平板：3 个卡片
-                768: {
-                  slidesPerView: 3,
-                  spaceBetween: 16,
-                },
-                // 桌面：4 个卡片
-                1024: {
-                  slidesPerView: 4,
-                  spaceBetween: 16,
-                },
-              }}
-            >
-              {allFeatures.map(itemKey => (
-                <SwiperSlide key={itemKey} className="h-auto!">
-                  <FeatureCard itemKey={itemKey} t={t} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+          <div className="mt-6 grid grid-cols-3 gap-2">
+            {sideMetrics.map(metric => (
+              <div key={metric.label} className="rounded-md border border-border bg-background px-3 py-2">
+                <div className="text-base font-semibold text-foreground">{metric.value}</div>
+                <div className="mt-1 text-[11px] text-muted-foreground">{metric.label}</div>
+              </div>
+            ))}
           </div>
 
-          {/* 移动端右箭头 */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden h-8 w-8 shrink-0 rounded-full cursor-pointer"
-            onClick={handleNext}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
+          <div className="mt-5 rounded-md border border-dashed border-primary/30 bg-primary/5 p-3">
+            <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+              <MousePointerClick className="h-4 w-4 text-primary" />
+              快速开始
+            </div>
+            <p className="mt-2 text-xs leading-5 text-muted-foreground">
+              输入内容需求，按需添加参考素材，系统会进入任务会话继续处理。
+            </p>
+          </div>
+        </aside>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          {featureGroups.map(group => (
+            <div key={group.title} className="rounded-lg border border-border bg-card p-4 shadow-sm">
+              <h3 className="text-base font-semibold text-foreground">{group.title}</h3>
+              <p className="mt-1 min-h-10 text-xs leading-5 text-muted-foreground">{group.description}</p>
+
+              <div className="mt-4 space-y-3">
+                {group.items.map(item => (
+                  <div key={item.title} className="rounded-md border border-border/80 bg-background p-3 transition-colors hover:border-primary/35">
+                    <div className="flex items-center gap-2">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
+                        <item.icon className="h-4 w-4" />
+                      </span>
+                      <span className="text-sm font-medium text-foreground">{item.title}</span>
+                    </div>
+                    <p className="mt-2 text-xs leading-5 text-muted-foreground">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="rounded-lg border border-border bg-card px-4 py-3 lg:col-span-2">
+          <div className="flex flex-col gap-3 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-2">
+              <MessageSquareText className="h-4 w-4 text-primary" />
+              <span>输入需求并添加参考素材后，即可进入任务会话继续处理。</span>
+            </div>
+            <span className="rounded-full bg-primary/10 px-3 py-1 text-primary">FlowMint workspace</span>
+          </div>
         </div>
       </div>
     </section>

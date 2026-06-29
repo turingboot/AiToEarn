@@ -6,7 +6,7 @@
 'use client'
 
 import type { TaskListItem } from '@/api/ai/ai.types'
-import { ArrowLeft, FileText, FileVideo, History, RefreshCw, Search, Star, X } from 'lucide-react'
+import { ActivitySquare, FileText, FileVideo, RefreshCw, Search, Star, X } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { agentApi } from '@/api/ai/ai.api'
@@ -151,14 +151,11 @@ export function TasksHistoryPageContent() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      {/* 顶部导航 */}
+      {/* 顶部操作区 */}
       <header className="sticky top-0 z-10 flex items-center justify-between px-4 py-3 bg-card border-b border-border">
         <div className="flex items-center gap-3">
-          <Button variant="ghost" size="icon" onClick={handleBack} className="w-8 h-8">
-            <ArrowLeft className="w-5 h-5" />
-          </Button>
           <div className="flex items-center gap-2">
-            <History className="w-5 h-5 text-primary" />
+            <ActivitySquare className="w-5 h-5 text-primary" />
             <h1 className="text-lg font-semibold text-foreground">{t('history.title')}</h1>
           </div>
           {total > 0 && (
@@ -286,7 +283,7 @@ export function TasksHistoryPageContent() {
               ) : (
                 // 无任何筛选的空状态
                 <>
-                  <History className="w-16 h-16 text-muted-foreground/30 mb-4" />
+                  <ActivitySquare className="w-16 h-16 text-muted-foreground/30 mb-4" />
                   <p className="text-muted-foreground mb-4">{t('history.empty')}</p>
                   <Button onClick={handleBack} className="cursor-pointer">
                     {t('home.startChat')}

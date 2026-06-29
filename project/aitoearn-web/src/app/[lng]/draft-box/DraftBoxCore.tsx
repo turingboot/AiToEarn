@@ -5,7 +5,8 @@
 
 'use client'
 
-import { Loader2, Plus, Sparkles } from 'lucide-react'
+import { Loader2, Plus } from 'lucide-react'
+import Image from 'next/image'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useRef } from 'react'
 import { useShallow } from 'zustand/react/shallow'
@@ -147,8 +148,11 @@ export default function DraftBoxCore() {
         <div className="flex-1 min-h-0">
           <div className="flex flex-col h-full bg-background">
             <div className="flex-1 p-4 md:p-6">
-              <div className="flex items-center justify-center h-full">
-                <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+              <div className="flex h-full items-center justify-center">
+                <div className="flex items-center gap-3 rounded-2xl border border-border bg-card px-5 py-4 shadow-sm">
+                  <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                  <span className="text-sm font-medium text-muted-foreground">{t('loading')}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -161,21 +165,28 @@ export default function DraftBoxCore() {
     return (
       <div className="flex flex-col h-full">
         <div className="flex-1 min-h-0">
-          <div className="flex flex-col h-full bg-background">
-            <div className="flex-1 flex items-center justify-center p-4">
-              <div className="text-center max-w-md">
-                <div className="mx-auto w-20 h-20 rounded-full bg-gradient-to-br from-[#c565ef]/10 to-[#55D9ED]/10 flex items-center justify-center mb-6">
-                  <Sparkles className="h-10 w-10 text-foreground/60" />
+          <div className="flex h-full flex-col bg-background">
+            <div className="flex flex-1 items-center justify-center p-4 md:p-8">
+              <div className="w-full max-w-2xl rounded-3xl border border-border bg-card p-8 text-center shadow-sm">
+                <div className="mx-auto mb-4 max-w-md">
+                  <Image
+                    src="/assets/flowmint/workspace-empty.svg"
+                    alt=""
+                    width={640}
+                    height={420}
+                    className="h-auto w-full"
+                    priority
+                  />
                 </div>
-                <h2 className="text-xl font-semibold text-foreground mb-2">
+                <h2 className="mb-2 text-2xl font-semibold text-foreground">
                   {t('empty.title')}
                 </h2>
-                <p className="text-muted-foreground mb-6">
+                <p className="mx-auto mb-6 max-w-md text-sm leading-6 text-muted-foreground">
                   {t('empty.description')}
                 </p>
                 <Button
                   size="lg"
-                  className="cursor-pointer gap-2"
+                  className="cursor-pointer gap-2 px-6"
                   onClick={openCreatePlanModal}
                 >
                   <Plus className="h-5 w-5" />
