@@ -71,7 +71,7 @@ channel:
     authType: qrcode
     miniApp:
       clientId: douyin-miniapp-client-id
-      clientSecret: ""
+      clientSecret: douyin-miniapp-client-secret
       sandbox: false
   facebook:
     status: available
@@ -145,8 +145,8 @@ channel:
     status: available
     logoUrl: https://assets.aitoearn.ai/platforms/rednote.svg
     appKey: rednote-app-key
-    appSecret: ""
-    accessTokenUrl: ""
+    appSecret: rednote-app-secret
+    accessTokenUrl: https://edith.xiaohongshu.com/api/sns/v1/ext/access/token
   threads:
     status: available
     clientId: ""
@@ -200,7 +200,7 @@ channel:
       status: available
       appId: ""
       appSecret: ""
-      token: ""
+      token: aitoearn
       encodingAESKey: ""
       redirectUri: https://localhost/api/platcallback
       logoUrl: https://assets.aitoearn.ai/platforms/wechat-channels.svg
