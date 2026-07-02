@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AiToEarn Blue White Theme Preview</title>
+    <style>
+      :root {
+        --page: #f4f9ff;
+        --surface: #ffffff;
+        --surface-soft: #eef7ff;
+        --surface-blue: #e7f2ff;
+        --line: #d7e7f7;
+        --line-strong: #bfd7f2;
+        --text: #15314f;
+        --muted: #647b95;
+        --primary: #1677ff;
+        --primary-deep: #0b5ed7;
+        --primary-soft: #dcebff;
+        --cyan: #38bdf8;
+        --success: #16a34a;
+        --warning: #f59e0b;
+        --shadow: 0 18px 45px rgba(24, 90, 156, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 18% 10%, rgba(56, 189, 248, 0.16), transparent 30%),
+          linear-gradient(135deg, #f8fbff 0%, var(--page) 52%, #ffffff 100%);
+        color: var(--text);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      .app {
+        display: grid;
+        grid-template-columns: 256px 1fr;
+        min-height: 100vh;
+      }
+
+      .sidebar {
+        border-right: 1px solid var(--line);
+        background: rgba(231, 242, 255, 0.86);
+        backdrop-filter: blur(18px);
+        padding: 24px 18px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 28px;
+        font-weight: 800;
+        font-size: 20px;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border-radius: 10px;
+        color: #fff;
+        background: linear-gradient(135deg, var(--primary), var(--cyan));
+        box-shadow: 0 12px 26px rgba(22, 119, 255, 0.22);
+      }
+
+      .nav {
+        display: grid;
+        gap: 8px;
+      }
+
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 44px;
+        padding: 0 12px;
+        border-radius: 8px;
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      .nav-item.active {
+        color: var(--primary-deep);
+        background: #ffffff;
+        box-shadow: 0 8px 24px rgba(22, 119, 255, 0.12);
+      }
+
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 99px;
+        background: currentColor;
+      }
+
+      .main {
+        padding: 28px 34px 36px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 28px;
+      }
+
+      h1 {
+        margin: 0 0 6px;
+        font-size: 30px;
+        letter-spacing: 0;
+      }
+
+      .subtitle {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .actions {
+        display: flex;
+        gap: 12px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 0 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+        color: var(--text);
+        font-weight: 700;
+      }
+
+      .button.primary {
+        border-color: transparent;
+        background: linear-gradient(135deg, var(--primary), #3aa7ff);
+        color: #fff;
+        box-shadow: 0 12px 26px rgba(22, 119, 255, 0.22);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.3fr 0.7fr;
+        gap: 22px;
+        margin-bottom: 22px;
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: var(--shadow);
+      }
+
+      .composer {
+        padding: 22px;
+      }
+
+      .prompt {
+        min-height: 132px;
+        border: 1px solid var(--line-strong);
+        border-radius: 8px;
+        background: linear-gradient(180deg, #ffffff 0%, #f5fbff 100%);
+        padding: 18px;
+      }
+
+      .prompt-title {
+        margin-bottom: 12px;
+        color: var(--primary-deep);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .prompt-line {
+        height: 12px;
+        margin-bottom: 11px;
+        border-radius: 99px;
+        background: #dcecff;
+      }
+
+      .prompt-line.short {
+        width: 62%;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .chip {
+        padding: 8px 11px;
+        border: 1px solid #cde2ff;
+        border-radius: 999px;
+        background: var(--primary-soft);
+        color: var(--primary-deep);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 18px;
+      }
+
+      .stat {
+        min-height: 96px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfdff;
+      }
+
+      .stat-label {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .stat-value {
+        margin-top: 10px;
+        font-size: 26px;
+        font-weight: 850;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .card {
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+        box-shadow: 0 12px 28px rgba(24, 90, 156, 0.08);
+      }
+
+      .card-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+
+      .badge {
+        padding: 5px 8px;
+        border-radius: 999px;
+        background: #e7f9ef;
+        color: var(--success);
+        font-size: 11px;
+        font-weight: 800;
+      }
+
+      .thumb {
+        height: 116px;
+        border: 1px solid #cfe4fb;
+        border-radius: 8px;
+        background:
+          linear-gradient(135deg, rgba(22, 119, 255, 0.2), transparent 42%),
+          linear-gradient(160deg, #f8fcff 0%, #dcebff 100%);
+      }
+
+      .meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">A</div>
+          <span>AiToEarn</span>
+        </div>
+        <nav class="nav" aria-label="preview">
+          <div class="nav-item active"><span class="dot"></span><span>AI Social</span></div>
+          <div class="nav-item"><span class="dot"></span><span>Draft Box</span></div>
+          <div class="nav-item"><span class="dot"></span><span>Calendar</span></div>
+          <div class="nav-item"><span class="dot"></span><span>Channels</span></div>
+          <div class="nav-item"><span class="dot"></span><span>Settings</span></div>
+        </nav>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <h1>Blue White Theme Preview</h1>
+            <div class="subtitle">Clean white workspace with calm blue navigation and action states.</div>
+          </div>
+          <div class="actions">
+            <div class="button">Import</div>
+            <div class="button primary">Create Task</div>
+          </div>
+        </header>
+
+        <section class="hero">
+          <div class="panel composer">
+            <div class="prompt">
+              <div class="prompt-title">AI content command</div>
+              <div class="prompt-line"></div>
+              <div class="prompt-line"></div>
+              <div class="prompt-line short"></div>
+            </div>
+            <div class="chips">
+              <span class="chip">Video script</span>
+              <span class="chip">Image batch</span>
+              <span class="chip">Publish plan</span>
+              <span class="chip">OpenClaw</span>
+            </div>
+          </div>
+
+          <div class="panel stats">
+            <div class="stat">
+              <div class="stat-label">Ready tasks</div>
+              <div class="stat-value">28</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Channels</div>
+              <div class="stat-value">12</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Success rate</div>
+              <div class="stat-value">96%</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Credits</div>
+              <div class="stat-value">8.4k</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="grid">
+          <article class="card">
+            <div class="card-head"><strong>Generated image</strong><span class="badge">Ready</span></div>
+            <div class="thumb"></div>
+            <div class="meta"><span>Blue accent</span><span>2 min ago</span></div>
+          </article>
+          <article class="card">
+            <div class="card-head"><strong>Publishing plan</strong><span class="badge">Synced</span></div>
+            <div class="thumb"></div>
+            <div class="meta"><span>5 platforms</span><span>Today</span></div>
+          </article>
+          <article class="card">
+            <div class="card-head"><strong>Asset library</strong><span class="badge">Active</span></div>
+            <div class="thumb"></div>
+            <div class="meta"><span>164 items</span><span>Organized</span></div>
+          </article>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

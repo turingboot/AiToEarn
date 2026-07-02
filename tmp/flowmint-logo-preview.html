@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FlowMint Logo Preview</title>
+    <style>
+      :root {
+        --ink: #082236;
+        --ink-soft: #12334d;
+        --blue: #2687ff;
+        --blue-deep: #1168d9;
+        --paper: #f7f3eb;
+        --paper-cool: #edf8ff;
+        --line: rgba(8, 34, 54, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 10% 0%, rgba(8, 34, 54, 0.14), transparent 26%),
+          radial-gradient(circle at 92% 96%, rgba(38, 135, 255, 0.18), transparent 30%),
+          linear-gradient(135deg, #f1eee7 0%, #fbf5ec 42%, #eff9ff 100%);
+        color: var(--ink);
+        font-family:
+          Inter, "SF Pro Display", "Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei",
+          sans-serif;
+      }
+
+      .canvas {
+        width: 1400px;
+        min-height: 900px;
+        margin: 0 auto;
+        padding: 70px 74px;
+      }
+
+      .title {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-bottom: 42px;
+      }
+
+      .title h1 {
+        margin: 0;
+        font-size: 30px;
+        line-height: 1.1;
+        letter-spacing: 0;
+      }
+
+      .title p {
+        margin: 0;
+        color: rgba(8, 34, 54, 0.58);
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      .hero {
+        display: grid;
+        place-items: center;
+        height: 280px;
+        margin-bottom: 34px;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.32);
+        box-shadow: 0 28px 80px rgba(8, 34, 54, 0.08);
+      }
+
+      .wordmark {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 34px;
+        white-space: nowrap;
+      }
+
+      .latin {
+        position: relative;
+        display: inline-flex;
+        align-items: baseline;
+        color: var(--ink);
+        font-size: 142px;
+        font-weight: 900;
+        line-height: 0.85;
+        letter-spacing: -4px;
+      }
+
+      .latin .f {
+        margin-right: -2px;
+        font-size: 1.02em;
+      }
+
+      .latin .i-wrap {
+        position: relative;
+        display: inline-block;
+      }
+
+      .latin .i-wrap::before {
+        content: "";
+        position: absolute;
+        top: -0.32em;
+        left: 50%;
+        width: 0.2em;
+        height: 0.2em;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--blue), #46a7ff);
+        box-shadow: 0 10px 22px rgba(38, 135, 255, 0.28);
+        transform: translateX(-50%);
+      }
+
+      .latin .i-wrap span {
+        color: transparent;
+      }
+
+      .latin .i-wrap::after {
+        content: "i";
+        position: absolute;
+        inset: 0;
+        color: var(--ink);
+      }
+
+      .han {
+        color: var(--ink);
+        font-size: 104px;
+        font-weight: 900;
+        line-height: 0.95;
+        letter-spacing: -2px;
+      }
+
+      .variants {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+      }
+
+      .card {
+        min-height: 220px;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.44);
+        box-shadow: 0 18px 42px rgba(8, 34, 54, 0.06);
+      }
+
+      .card-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 22px;
+        color: rgba(8, 34, 54, 0.58);
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .mini {
+        justify-content: flex-start;
+        gap: 13px;
+      }
+
+      .mini .latin {
+        font-size: 48px;
+        letter-spacing: -1.5px;
+      }
+
+      .mini .han {
+        font-size: 36px;
+        letter-spacing: -1px;
+      }
+
+      .description {
+        margin-top: 22px;
+        color: rgba(8, 34, 54, 0.62);
+        font-size: 14px;
+        line-height: 1.7;
+        font-weight: 650;
+      }
+
+      .swatches {
+        display: flex;
+        gap: 10px;
+        margin-top: 24px;
+      }
+
+      .swatch {
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        border: 1px solid rgba(8, 34, 54, 0.08);
+      }
+
+      .ink {
+        background: var(--ink);
+      }
+
+      .blue {
+        background: var(--blue);
+      }
+
+      .paper {
+        background: var(--paper);
+      }
+
+      .cool {
+        background: var(--paper-cool);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="canvas">
+      <header class="title">
+        <h1>FlowMint 字标预览</h1>
+        <p>参考 Tavix 拓效：深色粗体 + 蓝色圆点记忆符号 + 英文后接中文</p>
+      </header>
+
+      <section class="hero" aria-label="main preview">
+        <div class="wordmark">
+          <div class="latin" aria-label="FlowMint">
+            <span class="f">F</span><span>lowM</span><span class="i-wrap"><span>i</span></span><span>nt</span>
+          </div>
+          <div class="han">流明</div>
+        </div>
+      </section>
+
+      <section class="variants" aria-label="name variants">
+        <article class="card">
+          <div class="card-title"><span>方案 A</span><span>更像品牌名</span></div>
+          <div class="wordmark mini">
+            <div class="latin">
+              <span class="f">F</span><span>lowM</span><span class="i-wrap"><span>i</span></span><span>nt</span>
+            </div>
+            <div class="han">流明</div>
+          </div>
+          <p class="description">短、干净、科技感强；“明”有清晰、洞察、点亮工作流的含义。</p>
+          <div class="swatches">
+            <span class="swatch ink"></span><span class="swatch blue"></span><span class="swatch paper"></span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-title"><span>方案 B</span><span>更贴近 Flow</span></div>
+          <div class="wordmark mini">
+            <div class="latin">
+              <span class="f">F</span><span>lowM</span><span class="i-wrap"><span>i</span></span><span>nt</span>
+            </div>
+            <div class="han">流铸</div>
+          </div>
+          <p class="description">强调把内容工作流“铸造成品”，更偏生产力、自动化和生成结果。</p>
+          <div class="swatches">
+            <span class="swatch ink"></span><span class="swatch blue"></span><span class="swatch cool"></span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-title"><span>方案 C</span><span>更接近音译</span></div>
+          <div class="wordmark mini">
+            <div class="latin">
+              <span class="f">F</span><span>lowM</span><span class="i-wrap"><span>i</span></span><span>nt</span>
+            </div>
+            <div class="han">流敏特</div>
+          </div>
+          <p class="description">保留 FlowMint 发音识别，但中文较长，正式 Logo 里会更占宽。</p>
+          <div class="swatches">
+            <span class="swatch ink"></span><span class="swatch blue"></span><span class="swatch paper"></span>
+          </div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

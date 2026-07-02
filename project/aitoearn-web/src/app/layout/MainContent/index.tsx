@@ -6,7 +6,6 @@
 
 import { useNavigationLogic } from '@/app/layout/shared/hooks/useNavigationLogic'
 import { cn } from '@/utils/className'
-import { PageHeader } from '../PageHeader'
 
 interface MainContentProps {
   children: React.ReactNode
@@ -26,8 +25,6 @@ export function MainContent({ children, banner }: MainContentProps) {
       )}
     >
       {banner}
-      {/* 内容页头（桌面端）：当前页面标题 */}
-      <PageHeader />
       <div
         id="main-content"
         className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden"

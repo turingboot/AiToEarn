@@ -2,9 +2,11 @@
  * BrandWordmark - 布局区域复用的品牌字标
  */
 
+import Image from 'next/image'
+import tavixWordmark from '@/assets/images/tavix-wordmark.png'
 import { cn } from '@/utils/className'
 
-export const BRAND_TITLE = 'FlowMint'
+export const BRAND_TITLE = 'Tavix 拓效'
 
 type BrandWordmarkTag = 'h1' | 'span'
 type BrandWordmarkSize = 'sidebar' | 'mobile'
@@ -15,14 +17,9 @@ export interface BrandWordmarkProps {
   className?: string
 }
 
-const WORDMARK_SIZE_CLASSNAME: Record<BrandWordmarkSize, string> = {
-  sidebar: 'text-[1.05rem] tracking-[-0.025em]',
-  mobile: 'text-base tracking-[-0.02em]',
-}
-
-const ANCHOR_SIZE_CLASSNAME: Record<BrandWordmarkSize, string> = {
-  sidebar: 'text-[1.1em]',
-  mobile: 'text-[1.08em]',
+const WORDMARK_IMAGE_CLASSNAME: Record<BrandWordmarkSize, string> = {
+  sidebar: 'h-7 w-auto',
+  mobile: 'h-6 w-auto',
 }
 
 export function BrandWordmark({
@@ -35,29 +32,17 @@ export function BrandWordmark({
   return (
     <Component
       className={cn(
-        'm-0 flex select-none items-baseline whitespace-nowrap font-semibold leading-none',
-        WORDMARK_SIZE_CLASSNAME[size],
+        'm-0 inline-flex select-none items-center leading-none',
         className,
       )}
       aria-label={BRAND_TITLE}
     >
-      <span
-        className={cn(
-          'inline-block font-bold text-foreground transition-transform duration-300 group-hover/logo:-translate-y-px',
-          ANCHOR_SIZE_CLASSNAME[size],
-        )}
-      >
-        F
-      </span>
-      <span className="text-foreground/90">low</span>
-      <span
-        className={cn(
-          'inline-flex items-baseline bg-gradient-back bg-clip-text text-transparent transition-transform duration-300 group-hover/logo:translate-x-px',
-        )}
-      >
-        <span className={cn('inline-block font-bold', ANCHOR_SIZE_CLASSNAME[size])}>M</span>
-        <span>int</span>
-      </span>
+      <Image
+        src={tavixWordmark}
+        alt={BRAND_TITLE}
+        priority={size === 'sidebar'}
+        className={cn('block object-contain', WORDMARK_IMAGE_CLASSNAME[size])}
+      />
     </Component>
   )
 }

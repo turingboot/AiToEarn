@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FlowMint 灵流 Logo</title>
+    <style>
+      :root {
+        --ink: #082236;
+        --blue: #2687ff;
+        --paper: #f8f1e8;
+        --paper-cool: #eef9ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background:
+          radial-gradient(circle at 8% 0%, rgba(8, 34, 54, 0.14), transparent 25%),
+          radial-gradient(circle at 92% 96%, rgba(38, 135, 255, 0.18), transparent 31%),
+          linear-gradient(135deg, #f2eee7 0%, var(--paper) 44%, var(--paper-cool) 100%);
+        color: var(--ink);
+        font-family:
+          Inter, "Arial Rounded MT Bold", "SF Pro Display", "Segoe UI", "Microsoft YaHei UI",
+          "Microsoft YaHei", sans-serif;
+      }
+
+      .stage {
+        width: 1400px;
+        height: 860px;
+        display: grid;
+        place-items: center;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 38px;
+        white-space: nowrap;
+      }
+
+      .latin {
+        display: inline-flex;
+        align-items: baseline;
+        color: var(--ink);
+        font-size: 148px;
+        font-weight: 900;
+        line-height: 0.86;
+        letter-spacing: -4.8px;
+      }
+
+      .latin .f {
+        font-size: 1.03em;
+      }
+
+      .custom-i {
+        position: relative;
+        display: inline-block;
+        width: 0.22em;
+        height: 0.78em;
+        margin-right: 0.018em;
+        margin-left: 0.012em;
+        transform: translateY(0.015em);
+      }
+
+      .custom-i::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: -0.22em;
+        width: 0.2em;
+        height: 0.2em;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--blue), #4aa8ff);
+        box-shadow: 0 12px 22px rgba(38, 135, 255, 0.24);
+        transform: translateX(-50%);
+      }
+
+      .custom-i::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 0.2em;
+        height: 0.68em;
+        border-radius: 0.045em;
+        background: var(--ink);
+        transform: translateX(-50%);
+      }
+
+      .han {
+        color: var(--ink);
+        font-size: 108px;
+        font-weight: 900;
+        line-height: 0.95;
+        letter-spacing: -2.2px;
+      }
+
+      .caption {
+        position: fixed;
+        left: 50%;
+        bottom: 58px;
+        color: rgba(8, 34, 54, 0.42);
+        font-size: 18px;
+        font-weight: 700;
+        transform: translateX(-50%);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="stage">
+      <section class="logo" aria-label="FlowMint 灵流">
+        <div class="latin">
+          <span class="f">F</span><span>lowM</span><span class="custom-i"></span><span>nt</span>
+        </div>
+        <div class="han">灵流</div>
+      </section>
+      <div class="caption">FlowMint 灵流 · AI content workflow tool</div>
+    </main>
+  </body>
+</html>

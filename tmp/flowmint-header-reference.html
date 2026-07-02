@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FlowMint Header Reference</title>
+    <style>
+      :root {
+        --ink: #102033;
+        --muted: #556678;
+        --line: #d8e6f5;
+        --blue: #1683ff;
+        --sidebar: #e7f6ff;
+        --active: #c7eaff;
+        --page: #f5fbff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--page);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+      }
+
+      .app {
+        display: grid;
+        grid-template-columns: 384px 1fr;
+        min-height: 792px;
+      }
+
+      .topbar {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 384px 1fr 250px;
+        height: 64px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: 0 1px 8px rgba(20, 80, 140, 0.06);
+      }
+
+      .brand-zone {
+        display: flex;
+        min-width: 0;
+        align-items: center;
+        gap: 12px;
+        padding: 0 28px;
+        border-right: 1px solid var(--line);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: baseline;
+        white-space: nowrap;
+        color: var(--ink);
+        font-size: 27px;
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        line-height: 1;
+      }
+
+      .brand .f,
+      .brand .m {
+        font-size: 1.04em;
+        font-weight: 900;
+      }
+
+      .brand .custom-i {
+        position: relative;
+        display: inline-block;
+        width: 0.22em;
+        height: 0.72em;
+        margin: 0 0.015em;
+        transform: translateY(0.025em);
+      }
+
+      .brand .custom-i::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: -0.18em;
+        width: 0.18em;
+        height: 0.18em;
+        border-radius: 999px;
+        background: var(--blue);
+        transform: translateX(-50%);
+      }
+
+      .brand .custom-i::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 0.18em;
+        height: 0.64em;
+        border-radius: 0.04em;
+        background: var(--ink);
+        transform: translateX(-50%);
+      }
+
+      .brand-cn {
+        margin-left: 8px;
+        color: var(--ink);
+        font-size: 0.7em;
+        font-weight: 800;
+        letter-spacing: 0;
+      }
+
+      .divider {
+        width: 1px;
+        height: 18px;
+        background: var(--line);
+      }
+
+      .product {
+        min-width: 0;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 750;
+        letter-spacing: 0.03em;
+        white-space: nowrap;
+      }
+
+      .page-title {
+        display: flex;
+        align-items: center;
+        padding: 0 28px;
+        color: var(--ink);
+        font-size: 20px;
+        font-weight: 800;
+      }
+
+      .user {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        justify-content: center;
+        font-size: 22px;
+        font-weight: 600;
+      }
+
+      .avatar {
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border-radius: 999px;
+        background: #536778;
+        color: #fff;
+        font-weight: 800;
+      }
+
+      .sidebar {
+        padding: 124px 18px 24px;
+        background: var(--sidebar);
+      }
+
+      .nav {
+        display: grid;
+        gap: 22px;
+      }
+
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        height: 76px;
+        padding: 0 22px;
+        border-radius: 14px;
+        color: var(--muted);
+        font-size: 24px;
+        font-weight: 750;
+      }
+
+      .nav-item.active {
+        color: var(--blue);
+        background: var(--active);
+      }
+
+      .icon {
+        display: grid;
+        width: 48px;
+        height: 48px;
+        place-items: center;
+        border-radius: 12px;
+        background: #fff;
+        font-size: 22px;
+      }
+
+      .content {
+        padding: 118px 36px 36px;
+      }
+
+      .panel {
+        height: 520px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand-zone" title="FlowMint 灵流">
+        <span class="brand" aria-label="FlowMint 灵流">
+          <span class="f">F</span><span>lowM</span><span class="custom-i"></span><span>nt</span>
+          <span class="brand-cn">灵流</span>
+        </span>
+        <span class="divider"></span>
+        <span class="product">AI 多社媒发布</span>
+      </a>
+      <div class="page-title">工作台</div>
+      <div class="user"><span class="avatar">A</span><span>Admin</span></div>
+    </header>
+
+    <main class="app">
+      <aside class="sidebar">
+        <nav class="nav">
+          <div class="nav-item active"><span class="icon">⌂</span><span>工作台</span></div>
+          <div class="nav-item"><span class="icon">✳</span><span>智能编排</span></div>
+          <div class="nav-item"><span class="icon">▧</span><span>创意资产</span></div>
+          <div class="nav-item"><span class="icon">⇧</span><span>分发中心</span></div>
+        </nav>
+      </aside>
+      <section class="content">
+        <div class="panel"></div>
+      </section>
+    </main>
+  </body>
+</html>

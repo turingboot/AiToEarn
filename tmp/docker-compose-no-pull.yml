@@ -1,0 +1,7 @@
+services:
+  aitoearn-web:
+    pull_policy: never
+  aitoearn-ai:
+    pull_policy: never
+  aitoearn-server:
+    pull_policy: never
