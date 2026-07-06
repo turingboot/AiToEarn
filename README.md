@@ -341,7 +341,7 @@ Electron 项目为 AiToEarn 提供桌面客户端。
 - Telegram: [https://t.me/harryyyy2025](https://t.me/harryyyy2025)
 - 微信：扫码添加
 
-<img src="presentation/wechat-0706.jpg" alt="微信二维码" width="200">
+<img src="presentation/wechat-0706.png" alt="微信二维码" width="200">
 
 ## 推荐
 - [AtomGit托管](https://atomgit.com/yikart/AitoEarn)
