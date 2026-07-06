@@ -60,30 +60,24 @@ function NavItem({ item, currentRoute, collapsed, level = 0 }: NavItemProps) {
   const contentNode = (
     <div
       className={cn(
-        'relative flex w-full min-w-0 items-center text-sm font-medium transition-[background-color,color,box-shadow,transform] duration-200',
-        level === 0 ? 'rounded-xl' : 'rounded-lg',
+        'group relative flex w-full min-w-0 items-center rounded-lg text-sm transition-colors duration-200',
         showStrongActive
-          ? 'bg-sidebar-accent text-sidebar-primary font-semibold shadow-sm shadow-sidebar-border/40'
-          : 'text-muted-foreground hover:bg-sidebar-accent/55 hover:text-sidebar-foreground',
-        showBranchActive && 'text-sidebar-primary',
+          ? 'bg-sidebar-primary font-medium text-sidebar-primary-foreground shadow-sm'
+          : 'text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
+        showBranchActive && 'text-sidebar-primary hover:text-sidebar-primary-foreground',
         collapsed
-          ? 'justify-center px-2 py-2.5'
+          ? 'justify-center px-2 py-2'
           : level === 0
-            ? 'gap-3 px-3.5 py-2.5'
-            : 'gap-2.5 px-3 py-2 text-[13px]',
+            ? 'gap-3 px-3 py-2'
+            : 'gap-3 px-3 py-2 text-[13px]',
       )}
     >
-      {(showBranchActive || (showStrongActive && !collapsed && level === 0)) && (
-        <span className="absolute left-1.5 top-1/2 h-5 w-1 -translate-y-1/2 rounded-full bg-gradient-back" />
-      )}
       <span
         className={cn(
-          'flex shrink-0 items-center justify-center rounded-lg transition-colors',
-          level === 0 && 'size-8',
-          showStrongActive ? 'bg-card/80' : 'bg-card/60',
-          showStrongActive && 'text-brand-cyan',
-          showBranchActive && 'text-brand-cyan',
-          !showStrongActive && !showBranchActive && level > 0 && 'opacity-80',
+          'flex h-5 w-5 shrink-0 items-center justify-center transition-colors',
+          showStrongActive && 'text-sidebar-primary-foreground',
+          !showStrongActive && !showBranchActive && 'text-sidebar-foreground/70 group-hover:text-sidebar-foreground',
+          showBranchActive && 'text-sidebar-primary group-hover:text-sidebar-primary-foreground',
         )}
       >
         {level === 0 ? (

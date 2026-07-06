@@ -26,7 +26,7 @@ function getNavLabelClassName(isActive: boolean) {
   return cn(
     navLabelBaseClassName,
     isActive
-      ? 'h-10 min-w-12 px-3 bg-gradient-back text-gradient-foreground shadow-lg shadow-brand-purple/20'
+      ? 'h-10 min-w-12 px-3 bg-primary text-primary-foreground shadow-lg shadow-primary/20'
       : 'text-muted-foreground hover:text-foreground active:text-foreground',
   )
 }

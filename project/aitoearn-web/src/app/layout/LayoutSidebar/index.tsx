@@ -37,20 +37,32 @@ function LayoutSidebar() {
   return (
     <aside
       className={cn(
-        'group hidden h-full flex-col border-r border-sidebar-border bg-sidebar px-3 py-4 transition-all duration-300 md:flex',
+        'group hidden h-full flex-col border-r border-sidebar-border bg-sidebar px-3 py-4 text-sidebar-foreground transition-all duration-300 md:flex',
         collapsed ? 'w-[72px] min-w-[72px]' : 'w-[256px] min-w-[256px]',
       )}
     >
-      <div className={cn('mb-3 flex items-center px-1', collapsed ? 'justify-center' : 'justify-end')}>
-        <button
-          type="button"
-          onClick={() => setCollapsed(!collapsed)}
-          className="flex h-9 w-9 items-center justify-center rounded-lg border border-transparent bg-transparent text-muted-foreground/70 transition-colors hover:border-sidebar-border hover:bg-sidebar-accent hover:text-sidebar-foreground"
-          data-testid="sidebar-toggle-btn"
-          aria-label="toggle sidebar"
-        >
-          {collapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
-        </button>
+      <div className={cn('mb-3 flex h-10 items-center px-1', collapsed ? 'justify-center' : 'justify-end')}>
+        {collapsed ? (
+          <button
+            type="button"
+            onClick={() => setCollapsed(false)}
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-transparent bg-transparent text-sidebar-foreground/70 transition-colors hover:border-sidebar-border hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+            data-testid="sidebar-toggle-btn"
+            aria-label="toggle sidebar"
+          >
+            <PanelLeftOpen size={18} />
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setCollapsed(true)}
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-transparent bg-transparent text-sidebar-foreground/70 transition-colors hover:border-sidebar-border hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+            data-testid="sidebar-toggle-btn"
+            aria-label="toggle sidebar"
+          >
+            <PanelLeftClose size={18} />
+          </button>
+        )}
       </div>
 
       <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">

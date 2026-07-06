@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AiToEarn GEOFlow Color Preview</title>
+  <style>
+    :root {
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+      --blue-50: #eff6ff;
+      --blue-100: #dbeafe;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --white: #ffffff;
+      --green-600: #16a34a;
+      --amber-500: #f59e0b;
+      font-family: Inter, "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--slate-50);
+      color: var(--slate-900);
+    }
+
+    .frame {
+      width: 1440px;
+      height: 960px;
+      display: grid;
+      grid-template-columns: 256px 1fr;
+      background: var(--slate-50);
+      overflow: hidden;
+    }
+
+    aside {
+      background: var(--slate-900);
+      color: var(--slate-300);
+      border-right: 1px solid var(--slate-800);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 20px;
+      border-bottom: 1px solid var(--slate-800);
+      color: var(--slate-100);
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: var(--blue-600);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 800;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+    }
+
+    nav {
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .nav-item {
+      height: 42px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 12px;
+      color: var(--slate-300);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .nav-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      border: 1px solid rgba(148, 163, 184, 0.38);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .nav-item.active {
+      background: var(--blue-600);
+      color: white;
+      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.28);
+    }
+
+    .nav-item.active .nav-icon {
+      background: rgba(255, 255, 255, 0.22);
+      border-color: rgba(255, 255, 255, 0.32);
+    }
+
+    .main {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      height: 64px;
+      background: rgba(255, 255, 255, 0.97);
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+
+    .title-block { display: flex; flex-direction: column; gap: 4px; }
+    .eyebrow { color: var(--slate-500); font-size: 12px; font-weight: 600; }
+    h1 { margin: 0; font-size: 20px; line-height: 1.2; letter-spacing: 0; }
+
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+    .ghost-btn, .primary-btn {
+      height: 38px;
+      border-radius: 8px;
+      padding: 0 14px;
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid var(--slate-200);
+      background: white;
+      color: var(--slate-700);
+    }
+
+    .primary-btn {
+      background: var(--blue-600);
+      border-color: var(--blue-600);
+      color: white;
+      box-shadow: 0 8px 16px rgba(37, 99, 235, 0.18);
+    }
+
+    .content {
+      padding: 24px 28px 32px;
+      overflow: hidden;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      padding: 4px;
+      width: max-content;
+      border: 1px solid var(--slate-200);
+      border-radius: 8px;
+      background: var(--white);
+      margin-bottom: 18px;
+    }
+
+    .tab {
+      height: 32px;
+      padding: 0 12px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      color: var(--slate-600);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .tab.active { background: var(--blue-50); color: var(--blue-700); }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 8px;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+
+    .metric {
+      padding: 18px;
+      min-height: 126px;
+    }
+
+    .metric-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--slate-500);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .pill {
+      border-radius: 999px;
+      background: var(--blue-50);
+      color: var(--blue-700);
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .metric-value {
+      margin-top: 20px;
+      font-size: 30px;
+      font-weight: 760;
+      color: var(--slate-900);
+      letter-spacing: 0;
+    }
+
+    .metric-sub {
+      margin-top: 8px;
+      color: var(--slate-500);
+      font-size: 13px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 1.45fr 0.9fr;
+      gap: 18px;
+    }
+
+    .panel-header {
+      height: 58px;
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .panel-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--slate-900);
+    }
+
+    .panel-subtitle {
+      color: var(--slate-500);
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .chart {
+      padding: 20px 18px 18px;
+      height: 350px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      align-items: end;
+      gap: 10px;
+      background:
+        linear-gradient(to bottom, transparent 0, transparent 24%, var(--slate-100) 24.4%, transparent 25%),
+        linear-gradient(to bottom, transparent 0, transparent 49%, var(--slate-100) 49.4%, transparent 50%),
+        linear-gradient(to bottom, transparent 0, transparent 74%, var(--slate-100) 74.4%, transparent 75%);
+    }
+
+    .bar {
+      border-radius: 6px 6px 0 0;
+      background: linear-gradient(180deg, var(--blue-600), var(--blue-700));
+      min-height: 24px;
+    }
+
+    .table {
+      padding: 2px 0 12px;
+    }
+
+    .row {
+      height: 58px;
+      display: grid;
+      grid-template-columns: 1fr 88px 88px;
+      align-items: center;
+      gap: 12px;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .row:last-child { border-bottom: 0; }
+
+    .query { font-size: 14px; color: var(--slate-800); font-weight: 600; }
+    .url { margin-top: 4px; font-size: 12px; color: var(--slate-500); }
+    .num { text-align: right; color: var(--slate-700); font-size: 13px; font-weight: 700; }
+    .green { color: var(--green-600); }
+    .amber { color: var(--amber-500); }
+
+    .preview-note {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border: 1px solid var(--blue-100);
+      background: var(--blue-50);
+      color: var(--slate-700);
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <aside>
+      <div class="brand">
+        <div class="brand-mark">A</div>
+        <span>AiToEarn</span>
+      </div>
+      <nav>
+        <div class="nav-item active"><span class="nav-icon"></span><span>AI 创作台</span></div>
+        <div class="nav-item"><span class="nav-icon"></span><span>账号管理</span></div>
+        <div class="nav-item"><span class="nav-icon"></span><span>素材库</span></div>
+        <div class="nav-item"><span class="nav-icon"></span><span>发布任务</span></div>
+        <div class="nav-item"><span class="nav-icon"></span><span>任务历史</span></div>
+        <div class="nav-item"><span class="nav-icon"></span><span>插件市场</span></div>
+      </nav>
+    </aside>
+    <section class="main">
+      <header>
+        <div class="title-block">
+          <div class="eyebrow">Dashboard</div>
+          <h1>AI 多社媒发布工作台</h1>
+        </div>
+        <div class="header-actions">
+          <button class="ghost-btn">导入素材</button>
+          <button class="primary-btn">新建发布</button>
+        </div>
+      </header>
+      <main class="content">
+        <div class="tabs">
+          <div class="tab active">概览</div>
+          <div class="tab">内容计划</div>
+          <div class="tab">渠道表现</div>
+          <div class="tab">自动化</div>
+        </div>
+        <section class="metrics">
+          <div class="card metric">
+            <div class="metric-label">今日发布 <span class="pill">+12%</span></div>
+            <div class="metric-value">128</div>
+            <div class="metric-sub">跨 7 个社媒渠道</div>
+          </div>
+          <div class="card metric">
+            <div class="metric-label">待审核内容 <span class="pill">24</span></div>
+            <div class="metric-value">56</div>
+            <div class="metric-sub">建议优先处理高热度素材</div>
+          </div>
+          <div class="card metric">
+            <div class="metric-label">互动率 <span class="pill">稳定</span></div>
+            <div class="metric-value">8.7%</div>
+            <div class="metric-sub">较昨日提升 1.4%</div>
+          </div>
+          <div class="card metric">
+            <div class="metric-label">AI 生成额度 <span class="pill">72%</span></div>
+            <div class="metric-value">3.2k</div>
+            <div class="metric-sub">本周期剩余额度</div>
+          </div>
+        </section>
+        <section class="dashboard">
+          <div class="card">
+            <div class="panel-header">
+              <div>
+                <div class="panel-title">发布趋势</div>
+                <div class="panel-subtitle">使用 GEOFlow 后台的 slate + blue 配色</div>
+              </div>
+              <button class="ghost-btn">筛选</button>
+            </div>
+            <div class="chart">
+              <div class="bar" style="height:45%"></div>
+              <div class="bar" style="height:62%"></div>
+              <div class="bar" style="height:38%"></div>
+              <div class="bar" style="height:72%"></div>
+              <div class="bar" style="height:58%"></div>
+              <div class="bar" style="height:82%"></div>
+              <div class="bar" style="height:66%"></div>
+              <div class="bar" style="height:88%"></div>
+              <div class="bar" style="height:54%"></div>
+              <div class="bar" style="height:76%"></div>
+              <div class="bar" style="height:68%"></div>
+              <div class="bar" style="height:92%"></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="panel-header">
+              <div>
+                <div class="panel-title">热门内容</div>
+                <div class="panel-subtitle">卡片、表格、状态色预览</div>
+              </div>
+            </div>
+            <div class="table">
+              <div class="row">
+                <div><div class="query">短视频标题优化</div><div class="url">TikTok / YouTube Shorts</div></div>
+                <div class="num">23.4k</div>
+                <div class="num green">+18%</div>
+              </div>
+              <div class="row">
+                <div><div class="query">跨平台素材复用</div><div class="url">Instagram / Threads</div></div>
+                <div class="num">18.9k</div>
+                <div class="num green">+11%</div>
+              </div>
+              <div class="row">
+                <div><div class="query">品牌账号矩阵</div><div class="url">Pinterest / X</div></div>
+                <div class="num">12.7k</div>
+                <div class="num amber">待优化</div>
+              </div>
+              <div class="row">
+                <div><div class="query">AI 生成配图</div><div class="url">素材库</div></div>
+                <div class="num">9.6k</div>
+                <div class="num green">+7%</div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="preview-note">
+          预览说明：此图先展示配色迁移效果，不改变源码。确认后可把 AiToEarn 的 CSS 变量改为 GEOFlow 风格，并微调侧栏激活态、顶部栏、卡片、按钮和表格边框。
+        </div>
+      </main>
+    </section>
+  </div>
+</body>
+</html>

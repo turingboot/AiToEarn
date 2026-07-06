@@ -28,12 +28,12 @@ export function MyChannelsEntry({ collapsed }: SidebarCommonProps) {
             onClick={handleClick}
             data-testid="sidebar-my-channels"
             className={cn(
-              'flex flex-1 cursor-pointer items-center rounded-lg text-muted-foreground transition-colors hover:bg-brand-cyan/10 hover:text-brand-cyan',
-              collapsed ? 'h-9 w-9 justify-center' : 'justify-between px-3 py-2',
+              'group flex flex-1 cursor-pointer items-center rounded-lg text-sidebar-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
+              collapsed ? 'justify-center px-2 py-2' : 'justify-between px-3 py-2',
             )}
           >
-            <div className="flex items-center gap-2">
-              <Tv size={18} className="text-brand-cyan" />
+            <div className="flex items-center gap-3">
+              <Tv size={20} className="h-5 w-5 shrink-0 text-sidebar-foreground/70 transition-colors group-hover:text-sidebar-foreground" />
               {!collapsed && <span className="text-sm">{t('channelManager.myChannels')}</span>}
             </div>
           </button>

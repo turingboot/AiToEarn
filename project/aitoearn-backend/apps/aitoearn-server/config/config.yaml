@@ -179,7 +179,7 @@ channel:
     status: available
     clientId: ""
     clientSecret: ""
-    redirectUri: https://localhost/api/v2/channels/accounts/auth/twitter/callback
+    redirectUri: http://localhost:8080/api/v2/channels/accounts/auth/twitter/callback
     logoUrl: https://assets.aitoearn.ai/platforms/twitter.svg
     scopes:
       - tweet.read
@@ -218,5 +218,5 @@ channel:
       - https://www.googleapis.com/auth/userinfo.email
 relay:
   serverUrl: https://aitoearn.ai/api
-  apiKey: ""
+  apiKey: ai_scTv5nCszp4DxnW9jZT9DWtHl8WmVjb7FPm5Mjesnp2rfmZl
   callbackUrl: http://localhost:8080/api/v2/channels/relay/callback

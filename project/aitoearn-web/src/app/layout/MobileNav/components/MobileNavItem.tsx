@@ -28,12 +28,12 @@ export function MobileNavItem({
       data-testid={`mobile-nav-item-${translationKey}`}
       className={cn(
         'flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium transition-all',
-        'text-muted-foreground hover:bg-brand-cyan/10 hover:text-brand-cyan',
-        isActive && 'bg-brand-cyan/10 text-brand-cyan',
+        'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
+        isActive && 'bg-primary text-primary-foreground shadow-sm shadow-primary/20',
         className,
       )}
     >
-      <span className={cn('flex items-center justify-center', isActive && 'text-brand-cyan')}>
+      <span className="flex items-center justify-center">
         {icon || <FileText size={20} />}
       </span>
       <span>{t(translationKey)}</span>

@@ -39,6 +39,14 @@ export default function TopBar() {
           data-testid="topbar-logo-link"
           title={`${BRAND_TITLE} | ${PRODUCT_TITLE}`}
         >
+          {collapsed && (
+            <span
+              className="flex h-7 w-12 items-center overflow-hidden"
+              aria-label={BRAND_TITLE}
+            >
+              <BrandWordmark as="span" size="mobile" className="[&>img]:h-5 [&>img]:max-w-none [&>img]:object-left" />
+            </span>
+          )}
           {!collapsed && <BrandWordmark as="span" size="sidebar" />}
           {!collapsed && (
             <>

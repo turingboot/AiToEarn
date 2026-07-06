@@ -36,7 +36,7 @@ function MobileNav() {
   const handleClose = () => setIsOpen(false)
 
   const actionItemClassName
-    = 'flex w-full items-center gap-3 px-4 py-3 rounded-lg text-base font-medium text-muted-foreground transition-all hover:bg-brand-cyan/10 hover:text-brand-cyan cursor-pointer'
+    = 'flex w-full items-center gap-3 px-4 py-3 rounded-lg text-base font-medium text-muted-foreground transition-all hover:bg-accent hover:text-accent-foreground cursor-pointer'
 
   return (
     <>
